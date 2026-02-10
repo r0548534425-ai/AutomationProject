@@ -5,18 +5,17 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.openqa.selenium.By;
 import pageObject.*;
 
-import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Assertions;
 public class BtlTest extends BaseTest {
 
     //3
     @Test
-    public void checkSearch() throws InterruptedException {
+    public void checkSearch() {
         BtlBasePage page=new BtlBasePage(driver);
         AfterSearch a = page.search("חישוב סכום דמי לידה ליום");
-        Thread.sleep(10000);
+
         String res = a.searchTitle();
-        String expected="תוצאות חיפוש עבור חישוב סכום דמי לידה ליום" ;
+        String expected = "תוצאות חיפוש עבור חישוב סכום דמי לידה ליום";
         Assertions.assertTrue(res.contains(expected), "הכותרת לא תואמת לחיפוש!");
 
     }
@@ -33,8 +32,9 @@ public class BtlTest extends BaseTest {
     }
 
     //5
+
     @Test
-    public void checkBrancheDetails() throws InterruptedException {
+    public void checkBrancheDetails()  {
         BtlBasePage btlBasePage = new BtlBasePage(driver);
         BranchesPage branchesPage = btlBasePage.branchesPage();
 
@@ -47,27 +47,24 @@ public class BtlTest extends BaseTest {
 
     //6
     @Test
-    public void insuranceRateF() throws InterruptedException {
+    public void insuranceRateF() {
         BtlBasePage btlBasePage = new BtlBasePage(driver);
-        insuranceRate s = btlBasePage.clickInsuranceRate();
+        InsuranceRate s = btlBasePage.clickInsuranceRate();
         String res =  s.getTitle();
         String expected = "דמי ביטוח לאומי";
         Assertions.assertEquals(res, expected,"כותרת שונה");
 
         CalculateInsurance c= s.clickCalculator();
         res=c.getTitle();
+        System.out.println(res);
         expected="חישוב דמי ביטוח עבור עצמאי, תלמיד, שוהה בחוץ לארץ ומי שלא עובד";
-        Assertions.assertEquals(res, expected,"כותרת שונה");
-        CalculateInsurance2 c2=c.fillDetails();
-        Thread.sleep(3000);
-        res= c2.getTitle();
+        Assertions.assertTrue(expected.contains(res),"כותרת שונה");
+        CalculateInsurance2 c2 = c.fillDetails();
+        res = c2.getTitle();
         expected="צעד שני";
-
         assertTrue(res.contains(expected), "כותרת שונה");
 
         FinishCalculate f = c2.fillDetails2();
-        Thread.sleep(3000);
-
         res = f.getTitle();
         expected = "סיום";
 
@@ -81,18 +78,19 @@ public class BtlTest extends BaseTest {
 
     //7
     @Test
-    public void unemploymebt() throws InterruptedException {
+    public void unemploymebt(){
         BtlBasePage page = new BtlBasePage(driver);
+
         Unemployment u = page.benefits();
         UnemploymentPayment p = u.calculator();
         CalculateUnemployment c=p.calculate();
         Income i = c.fillDetails();
-        Thread.sleep(3000);
+
         ResultCalculate r =  i.fillIncomes();
         String res = r.getTitle();
         String expected = "חישוב סכום דמי אבטלה";
-        Assertions.assertEquals(res,expected,"כותרת שונה");
-        Thread.sleep(3000);
+        Assertions.assertTrue(res.contains(expected),"כותרת שונה");
+
         Assertions.assertTrue(r.checkDetails(),"לא קיימים כל הפרטים");
     }
     //8

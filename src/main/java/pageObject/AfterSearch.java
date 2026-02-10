@@ -2,6 +2,7 @@ package pageObject;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class AfterSearch extends BtlBasePage {
     public AfterSearch(WebDriver driver)
@@ -11,6 +12,6 @@ public class AfterSearch extends BtlBasePage {
 
     public String searchTitle()
     {
-        return driver.findElement(By.xpath("//h2[contains(., 'חישוב סכום')]")).getText();
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h2[contains(., 'חישוב סכום')]"))).getText();
     }
 }

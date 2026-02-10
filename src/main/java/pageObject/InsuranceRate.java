@@ -3,8 +3,8 @@ package pageObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class insuranceRate extends BtlBasePage{
-    public insuranceRate(WebDriver driver)
+public class InsuranceRate extends BtlBasePage{
+    public InsuranceRate(WebDriver driver)
     {
         super(driver);
     }
@@ -16,6 +16,8 @@ public class insuranceRate extends BtlBasePage{
     public CalculateInsurance clickCalculator()
     {
         driver.findElement(By.xpath("//strong[text()=\"מחשבון לחישוב דמי הביטוח\"]")).click();
+
         return new CalculateInsurance(driver);
     }
+
 }

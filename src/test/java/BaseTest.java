@@ -8,10 +8,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class BaseTest {
 
     WebDriver driver;
+    WebDriverWait wait;
 
     @BeforeAll
     public static void startTests(){
@@ -33,6 +37,7 @@ public class BaseTest {
             WebDriverManager.edgedriver().setup();
             driver = new EdgeDriver();
         }
+        wait = new WebDriverWait(driver, Duration.ofSeconds(12));
         driver.manage().window().maximize();
         driver.get("https://www.btl.gov.il/Pages/default.aspx");
     }

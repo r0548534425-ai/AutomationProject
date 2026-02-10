@@ -2,6 +2,7 @@ package pageObject;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class FinishCalculate extends BtlBasePage{
     public FinishCalculate(WebDriver driver)
@@ -10,7 +11,7 @@ public class FinishCalculate extends BtlBasePage{
     }
     public String getTitle()
     {
-        return driver.findElement(By.xpath("//h2[@id=\"header\"]")).getText();
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h2[contains(text(), \"סיום\")]"))).getText();
     }
     public String checkSum()
     {

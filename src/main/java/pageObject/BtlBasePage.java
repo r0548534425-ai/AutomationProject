@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class BtlBasePage extends  BasePage{
     public BtlBasePage(WebDriver driver) {
@@ -20,14 +21,15 @@ public class BtlBasePage extends  BasePage{
 //
 
     public void navigate(MainMenu mainMenuItem, String submenu) {
-        try {
-            Thread.sleep(8000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        driver.findElement(By.xpath("//a[text()='"+mainMenuItem.getMainMenuItem()+"' and not(contains(@class,'mobile'))]"));
-        driver.findElement(By.xpath("//a[text()='"+ submenu +"']"));
+
+        wait.until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//a[text()='"+mainMenuItem.getMainMenuItem()+"' and not(contains(@class,'mobile'))]")
+        )).click();
+        wait.until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//a[text()='"+ submenu +"']")
+        )).click();
     }
+
 
     public AfterSearch search(String s){
         search.sendKeys(s);
@@ -42,19 +44,21 @@ public class BtlBasePage extends  BasePage{
         return new BranchesPage(driver);
     }
 
-    public insuranceRate clickInsuranceRate()
+    public InsuranceRate clickInsuranceRate()
     {
-        driver.findElement(By.xpath("//a[@id=\"ctl00_Topmneu_InsuranceHyperLink\"]")).click();
-        driver.findElement(By.xpath("//a[text()=\"דמי ביטוח לאומי\"]")).click();
-        return new insuranceRate(driver);
+
+        navigate(MainMenu.PAY, "דמי ביטוח לאומי");
+
+        return new InsuranceRate(driver);
     }
 
     public Unemployment benefits()
     {
-        driver.findElement(By.xpath("//a[@id=\"ctl00_Topmneu_HyperLink3\"]")).click();
-        driver.findElement(By.xpath("//ul/li/a[text()=\"אבטלה\"]")).click();
+
+        navigate(MainMenu.GOODS, "אבטלה");
         return new Unemployment(driver);
     }
+
 }
 
 
