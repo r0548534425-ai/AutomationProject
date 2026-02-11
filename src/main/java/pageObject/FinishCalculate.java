@@ -15,6 +15,6 @@ public class FinishCalculate extends BtlBasePage{
     }
     public String checkSum()
     {
-        return driver.findElement(By.xpath("//strong[text()=\" 171 \"]")).getText();
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//strong[text()=\" 171 \"]"))).getText();
     }
 }
